@@ -24,6 +24,7 @@ export default function App() {
         // On peut avoir id comme key en mot clé du tableau
         // ici nous avons qu'un seul élément à retourner donc on peut se passer d'écrire return
         setCourseGoals(currentCourseGoals => [...currentCourseGoals, { id: Math.random().toString(), value : goalTitle}]);
+        setIsAddMode(false);
     };
 
     //fonction pour supprimer un item
@@ -34,6 +35,10 @@ export default function App() {
 
         });
 
+    }
+
+    const cancelGoalHandler = () => {
+        setIsAddMode(false);
     }
 
     // on mappe tout ce qui est dans le tableau en texte, map fonctionne toujours avec une clé
@@ -50,7 +55,7 @@ export default function App() {
       <View style={styles.firstview}>
           <Button title="Add New Goal" onPress= {() => setIsAddMode(true)}/>
 
-            <GoalInput visible={isAddMode} onAddGoal={addGoalHandler}/>
+            <GoalInput visible={isAddMode} onAddGoal={addGoalHandler} onCancel = {cancelGoalHandler}/>
 
             <FlatList keyExtractor={(item,index) => item.id} data = {CourseGoals}  renderItem={itemData => <GoalItem  id = {itemData.item.id} onDelete = {RemoveGoalHandler} title={itemData.item.value} />}
             />
