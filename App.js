@@ -15,6 +15,8 @@ export default function App() {
     // tableau vide
     const [CourseGoals,setCourseGoals] = useState([]);
     const [isAddMode, setIsAddMode] = useState(false)
+    console.log(CourseGoals);
+
 
 
     // fonction qui permet de mettre à jour le tableau
@@ -23,6 +25,10 @@ export default function App() {
         // Notre tableau de cours est maintenant un tableau d'objets ou chaque objet a une clé et une valeur associée
         // On peut avoir id comme key en mot clé du tableau
         // ici nous avons qu'un seul élément à retourner donc on peut se passer d'écrire return
+        if (goalTitle.length == 0){
+            return;
+        }
+
         setCourseGoals(currentCourseGoals => [...currentCourseGoals, { id: Math.random().toString(), value : goalTitle}]);
         setIsAddMode(false);
     };
@@ -30,7 +36,6 @@ export default function App() {
     //fonction pour supprimer un item
     const RemoveGoalHandler = goalId => {
         setCourseGoals(currentGoals => {
-
             return currentGoals.filter((goal) => goal.id !== goalId);
 
         });
